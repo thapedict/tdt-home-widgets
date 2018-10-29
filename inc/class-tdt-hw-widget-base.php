@@ -179,6 +179,7 @@ abstract class TDT_HW_Widget_Base {
      */
     public function load_all() {
         HTMLER::h1_e( $this->plural_name );
+        $this->the_and_new_link();
 
         $all = get_posts( array( 'post_type' => $this->id ) );
 
@@ -193,7 +194,6 @@ abstract class TDT_HW_Widget_Base {
             echo '</ul>';
         } else {
             HTMLER::h3_e( __( 'No posts found', 'tdt-hw' ) );
-            HTMLER::a_e( __( 'Add New', 'tdt-hw' ), array( 'href' => $this->get_edit_url( 0 ) ) );
         }
     }
 
@@ -300,5 +300,17 @@ abstract class TDT_HW_Widget_Base {
         $default_args[ 'post_type' ] = $this->id;
 
         return $default_args;
+    }
+
+    /**
+     *  Prints outs the add new link
+     */
+    public function the_and_new_link() {
+        $attr = array(
+            'href' => $this->get_edit_url( 0 ),
+            'class' => 'add-new-button button'
+        );
+        
+        HTMLER::a_e( __( 'Add New', 'tdt-hw' ), $attr );
     }
 }
