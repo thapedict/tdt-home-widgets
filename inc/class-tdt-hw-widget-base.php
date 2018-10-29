@@ -81,8 +81,10 @@ abstract class TDT_HW_Widget_Base {
      *  Figure out if we are loading one or many
      */
     public function load_page() {
-        if( isset( $_GET[ 'id' ] ) ) {
-            $this->load_one( $_GET[ 'id' ] );
+        if ( isset( $_GET[ 'id' ] ) ) {
+            $id = (int) $_GET[ 'id' ];
+
+            $this->load_one( $id );
         } else {
             $this->load_all();
         }
@@ -117,6 +119,20 @@ abstract class TDT_HW_Widget_Base {
         $url .= $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'PHP_SELF' ] . '?' . http_build_query( $query_args, 'tdt_hw_' );
 
         return $url;
+    }
+
+    /**
+     *  Get url to add new page
+     *
+     *  @return string the add new url
+     */
+    public function get_edit_url( $id ) {
+        $args = array(
+            'page' => $this->get_slug(),
+            'id' => $id
+        );
+
+        return $this->get_admin_url( $args );
     }
 
     /**
@@ -166,15 +182,18 @@ abstract class TDT_HW_Widget_Base {
 
         $all = get_posts( array( 'post_type' => $this->id ) );
 
-        if( $all ) {
+        if ( $all ) {
             echo '<ul>';
-            foreach( $all as $post ) {
+            foreach ( $all as $post ) {
                 $url = $this->get_admin_url( array( 'id' => $post->ID ) );
                 $link = HTMLER::a( $post->post_title, array( 'href' => $url ) );
 
                 HTMLER::li_raw_e( $link );
             }
             echo '</ul>';
+        } else {
+            HTMLER::h3_e( __( 'No posts found', 'tdt-hw' ) );
+            HTMLER::a_e( __( 'Add New', 'tdt-hw' ), array( 'href' => $this->get_edit_url( 0 ) ) );
         }
     }
 
@@ -186,46 +205,100 @@ abstract class TDT_HW_Widget_Base {
     public function load_one( $id ) {
         $html_form = new html_form( array( 'id' => $this->get_slug() ) );
 
-        $fields = array_merge( array( 'id', 'title', 'content' ), $this->meta );
+        $fields = array_merge( array( 'ID', 'post_title', 'post_content' ), $this->meta );
 
         $html_form->add_input( $fields );
 
-        $html_form->update_type( array( 'id' => 'hidden', 'content' => 'textarea' ) );
+        $html_form->update_type( array( 'ID' => 'hidden', 'post_content' => 'textarea' ) );
 
-        if( $id == 'null' ) {
-            $title = __( 'Add New', 'tdt-hw' );
+        if ( empty( $_POST ) ) {
+            if ( $id ) {
+                $post = (array) $this->get_post( $id );
+
+                $html_form->update_values( $post );
+            }
         } else {
-            $id = (int) $id;
+            $submitted = $html_form->get_post();
 
-            $args = array(
-                'p' => $id,
-                'post_type' => $this->id
-            );
+            $post_args = $this->get_post_args( $submitted );
 
-            $query = new WP_Query( $args );
+            $_id = wp_insert_post( $post_args, true );
 
-            if ( ! $query->found_posts ) {
-                HTMLER::h1_e( 'Invalid Post ID', array( 'class' => 'error' ) );
+            if ( is_int( $_id ) ) {
+                if ( ! $id ) { // creating a new post
+                    $post_args[ 'ID' ] = $_id;
+                    $html_form->set_action( $this->get_edit_url( $_id ) );
+                }
 
-                HTMLER::a_e( __( 'Back', 'tdt-hw' ), array( 'href' => $this->get_admin_url() ) );
-                return;
+                $html_form->update_values( $post_args );
             } else {
-                $post = $query->post;
-
-                $title = __( 'Update', 'tdt-hw' );
-
-                $html_form->update_values(
-                                        array(
-                                            'id' => $id,
-                                            'title' => $post->post_title,
-                                            'content' => $post->post_content
-                                        )
-                                    );
+                // WP_Error
+                // How to debug this??
+                var_dump( $_id );
             }
         }
 
-        HTMLER::h1_e( $title );
+        $html_form->print_form();
+    }
 
-        $html_form->print();
+    /**
+     *  Get one post
+     *
+     *  @param int $id the id of the post.
+     *
+     *  @return WP_Post|false false on failure, or WP_Post on success
+     */
+    public function get_post( $id ) {
+        $post = false;
+
+        $id = intval( $id );
+
+        $args = array(
+            'p' => $id,
+            'post_type' => $this->id
+        );
+
+        $query = new WP_Query( $args );
+
+        if ( $query->found_posts ) {
+            $post = $query->post;
+        }
+
+        return $post;
+    }
+
+    /**
+     *  Get some default post args
+     *
+     *  @param array $args an optional array to merge with default post args.
+     *
+     *  @return array an array with default post args
+     */
+    public function get_post_args( array $args = array() ) {
+        $default_args = array(
+            'ID' => 0,
+            'post_title' => '',
+            'post_content' => '',
+            'post_status' => 'publish',
+            'ping_status' => 'closed'
+        );
+
+        if ( ! empty( $args ) ) {
+            if ( isset( $args[ 'ID' ] ) ) {
+                if ( is_numeric( $args[ 'ID' ] ) ) {
+                    $args[ 'ID' ] = (int) $args[ 'ID' ];
+                } else {
+                    unset( $args[ 'ID' ] );
+                }
+            }
+
+            $_args = array_intersect_key( $args, $default_args );
+
+            $default_args = array_merge( $default_args, $_args );
+        }
+
+        $default_args[ 'post_type' ] = $this->id;
+
+        return $default_args;
     }
 }
