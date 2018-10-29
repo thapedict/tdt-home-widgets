@@ -59,7 +59,7 @@ class html_form {
     /**
      *    the default properties of the textarea fields
      *
-     *    NOTE: Upon initialization(to avoid repetition), they will extend (be joined with) the input defaults
+     *    NOTE: Upon initialization (to avoid repetition), they will extend (be joined with) the input defaults
      *
      *    @var array
      */
@@ -72,7 +72,7 @@ class html_form {
     /**
      *    the default properties of the submit button
      *
-     *    NOTE: Upon initialization(to avoid repetition), they will extend (be joined with) the input defaults
+     *    NOTE: Upon initialization (to avoid repetition), they will extend (be joined with) the input defaults
      *
      *    @var array
      */
@@ -161,7 +161,7 @@ class html_form {
     /**
      *
      */
-    function print() {
+    function print_form() {
         print $this->get_form();
     }
 
@@ -545,5 +545,15 @@ class html_form {
         $submit = $this->get_input( $this->submit_defaults );
 
         return $submit . '</form>';
+    }
+
+    function set_action( $value ) {
+        $this->action = $value;
+    }
+
+    function set_method( $value ) {
+        if( strtolower( $value ) == 'post' || strtolower( $value ) == 'get' ) {
+            $this->method = $value;
+        }
     }
 }
