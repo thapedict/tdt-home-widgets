@@ -54,11 +54,6 @@ class TDT_HW_Main {
         $page_title = __( 'TDT Home Widgets', 'tdt-hw' );
 
         add_menu_page( $page_title, $page_title, 'manage_options', 'tdt_home_widgets', array( $this, 'main_admin_page' ), '', 60 );
-        // add_submenu_page( 'tdt_home_widgets', 'Subpage', 'Subpage', 'manage_options', 'tdt_hw_page_subpage', array( $this, 'subpage' ) );
-    }
-
-    public function subpage() {
-        HTMLER::h1_e( 'Hello, World!' );
     }
 
     /**
