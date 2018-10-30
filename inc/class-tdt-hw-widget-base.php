@@ -139,10 +139,10 @@ abstract class TDT_HW_Widget_Base {
      *  Creating names out of ID
      */
     protected function set_names() {
-        if( ! $this->singular_name )
+        if ( ! $this->singular_name )
             $this->singular_name = ucwords( str_replace( '_', ' ', $this->id ) );
 
-        if( ! $this->plural_name )
+        if ( ! $this->plural_name )
             $this->plural_name = $this->singular_name . 's';
     }
 
@@ -179,7 +179,7 @@ abstract class TDT_HW_Widget_Base {
      */
     public function load_all() {
         HTMLER::h1_e( $this->plural_name );
-        $this->the_and_new_link();
+        $this->the_add_new_button();
 
         $all = get_posts( array( 'post_type' => $this->id ) );
 
@@ -203,6 +203,8 @@ abstract class TDT_HW_Widget_Base {
      *  @param mixed $id the id (int) of the post to edit, or the null (string) to add new post.
      */
     public function load_one( $id ) {
+        HTMLER::h1_e( $this->singular_name );
+
         $html_form = new html_form( array( 'id' => $this->get_slug() ) );
 
         $fields = array_merge( array( 'ID', 'post_title', 'post_content' ), $this->meta );
@@ -226,7 +228,7 @@ abstract class TDT_HW_Widget_Base {
 
             if ( is_int( $_id ) ) {
                 if ( ! $id ) { // creating a new post
-                    $post_args[ 'ID' ] = $_id;
+                    $post_args[ 'ID' ] = $id = $_id;
                     $html_form->set_action( $this->get_edit_url( $_id ) );
                 }
 
@@ -234,8 +236,13 @@ abstract class TDT_HW_Widget_Base {
             } else {
                 // WP_Error
                 // How to debug this??
-                var_dump( $_id );
+                // var_dump( $_id );
+                HTMLER::h3_e( $_id->get_error_message() );
             }
+        }
+
+        if ( $id ) { // An ID means we are not at the and new page
+            $this->the_add_new_button();
         }
 
         $html_form->print_form();
@@ -305,7 +312,7 @@ abstract class TDT_HW_Widget_Base {
     /**
      *  Prints outs the add new link
      */
-    public function the_and_new_link() {
+    public function the_add_new_button() {
         $attr = array(
             'href' => $this->get_edit_url( 0 ),
             'class' => 'add-new-button button'
