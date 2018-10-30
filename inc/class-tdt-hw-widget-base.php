@@ -200,7 +200,7 @@ abstract class TDT_HW_Widget_Base {
     /**
      *  Load one gui
      *
-     *  @param mixed $id the id (int) of the post to edit, or the null (string) to add new post.
+     *  @param int $id the id (int) of the post to edit (0 if we want to add new post).
      */
     public function load_one( $id ) {
         HTMLER::h1_e( $this->singular_name );
@@ -215,9 +215,15 @@ abstract class TDT_HW_Widget_Base {
 
         if ( empty( $_POST ) ) {
             if ( $id ) {
-                $post = (array) $this->get_post( $id );
+                $the_post = (array) $this->get_post( $id );
+                $the_meta = array();
 
-                $html_form->update_values( $post );
+                foreach ( $this->meta as $m ) {
+                    $the_meta[ $m ] = get_post_meta( $id, $m, true );
+                }
+
+                $html_form->update_values( $the_post );
+                $html_form->update_values( $the_meta );
             }
         } else {
             $submitted = $html_form->get_post();
@@ -233,6 +239,14 @@ abstract class TDT_HW_Widget_Base {
                 }
 
                 $html_form->update_values( $post_args );
+
+                $submitted_meta = array_intersect_key( $submitted, array_flip( $this->meta ) );
+
+                foreach ( $submitted_meta as $k => $v ) {
+                    update_post_meta( $id, $k, $v );
+                }
+
+                $html_form->update_values( $submitted_meta );
             } else {
                 // WP_Error
                 // How to debug this??
