@@ -7,6 +7,7 @@
 * Contact Form
 * Featured Items
 * Featured Posts
+* Mission Statement
 * Team Members
 * Testimonials
 
