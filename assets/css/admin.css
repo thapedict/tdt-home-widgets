@@ -1,0 +1,93 @@
+
+#tdt-hw-admin-page {
+    padding: 1em;
+    padding-left: 0;
+}
+
+#tdt-hw-admin-page #admin-notices .notice {
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 1.2em;
+    border-radius: 5px;
+}
+
+#tdt-hw-admin-page #admin-notices .notice:first-child {
+    margin-top: 1em;
+}
+
+#tdt-hw-admin-page #admin-notices .notice.ok {
+    border: 1px solid #305E30;
+    background-color: #CAE7D3;
+}
+
+#tdt-hw-admin-page #admin-notices .notice.error {
+    border: 1px solid #FF0000;
+    background-color: #EDC6C6;
+}
+
+#tdt-hw-admin-page > header * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#tdt-hw-admin-page > header a {
+    margin-left: 1em;
+}
+
+#tdt-hw-admin-page form {
+    margin-top: 1em;
+}
+
+#tdt-hw-admin-page form label {
+    display: block;
+}
+
+#tdt-hw-admin-page form input,
+#tdt-hw-admin-page form textarea {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    padding: 6px;
+    margin: 0.3em 0 1em;
+}
+
+#tdt-hw-admin-page form input[type=submit] {
+    width: auto;
+}
+
+#tdt-hw-admin-page .col-2-1 {
+    display: flex;
+}
+
+#tdt-hw-admin-page .col-2-1 > *:first-child {
+    width: 66%;
+}
+
+#tdt-hw-admin-page #post-details {
+    margin: 0 1em;
+}
+
+#tdt-hw-admin-page #post-details div {
+    margin-bottom: 1em;
+}
+
+#tdt-hw-admin-page table {
+    margin-top: 1em;
+    width: 100%;
+    border: 1px solid;
+    font-size: 1.2em;
+    border-collapse: collapse;
+}
+
+#tdt-hw-admin-page table tr > * {
+    padding: 0.5em;
+    border: 1px solid;
+}
+
+#tdt-hw-admin-page th {
+    background-color: #fff;
+}
+
+#tdt-hw-admin-page tr:nth-child(even) {
+    background-color: #e6e6e6;
+}
