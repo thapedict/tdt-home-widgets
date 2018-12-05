@@ -39,12 +39,22 @@ class TDT_HW_Main {
         add_action( 'admin_menu', array( $this, 'admin_menu' ) );
         add_action( 'all_admin_notices', array( $this, 'admin_notices' ) );
         $this->load_all_widgets();
+
+        add_action( 'admin_init', array( $this, 'admin_init' ) );
+    }
+
+    /**
+     *  Plugin directory url
+     */
+    public static function url() {
+        return plugin_dir_url( __DIR__ );
     }
 
     /**
      *  For the admin
      */
     public function admin_init() {
+        $this->admin_scripts();
     }
 
     /**
@@ -56,10 +66,17 @@ class TDT_HW_Main {
         add_menu_page( $page_title, $page_title, 'manage_options', 'tdt_home_widgets', array( $this, 'main_admin_page' ), '', 60 );
     }
 
+    public function admin_scripts() {
+        // wp_enqueue_script();
+        wp_enqueue_style( 'tdt-hw-main', self::url() . '/assets/css/admin.css' );
+    }
+
     /**
      *  Main plugin page
      */
     public function main_admin_page() {
+        self::open_main();
+
         do_action( 'all_admin_notices' );
 
         HTMLER::h1_e( __( 'Home Widgets', 'tdt-hw' ) );
@@ -71,6 +88,8 @@ class TDT_HW_Main {
             HTMLER::li_raw_e( $link );
         }
         echo '</ul>';
+
+        self::close_main();
     }
 
     /**
@@ -108,7 +127,7 @@ class TDT_HW_Main {
     /**
      *  Creating main widgets class
      *
-     *  @param  string  $class  the class to create.
+     *  @param  string  $widget_base  the class to create.
      *
      *  @throws Exception Class not found.
      *
@@ -137,5 +156,19 @@ class TDT_HW_Main {
             // ehm...
             throw new Exception( __( 'Class not found', 'tdt-hw' ) . ": {$class}" );
         }
+    }
+
+    /**
+     *  The opening tags of the main section
+     */
+    public static function open_main() {
+        echo '<div id="tdt-hw-admin-page">';
+    }
+
+    /**
+     *  The closing tags of the main section
+     */
+    public static function close_main() {
+        echo '</div>';
     }
 }
