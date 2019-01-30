@@ -23,6 +23,9 @@ define( 'TDT_HW_VERSION', '0.0.1' );
 define( 'TDT_HW_PATH', __DIR__, true );
 define( 'TDT_HW_WIDGETS_PATH', TDT_HW_PATH . DS . 'widgets', true );
 
+define( 'TDT_HW_CSS_URL', plugin_dir_url( __FILE__ ) . 'assets/css/', true );
+define( 'TDT_HW_JS_URL', plugin_dir_url( __FILE__ ) . 'assets/js/', true );
+
 
 require_once 'autoload.php';
 
