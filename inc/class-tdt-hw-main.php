@@ -67,7 +67,7 @@ class TDT_HW_Main {
     }
 
     public function admin_scripts() {
-        // wp_enqueue_script();
+        wp_enqueue_script( 'tdt-hw-main', self::url() . '/assets/js/admin.js' );
         wp_enqueue_style( 'tdt-hw-main', self::url() . '/assets/css/admin.css' );
     }
 
