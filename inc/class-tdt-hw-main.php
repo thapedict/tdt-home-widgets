@@ -137,9 +137,9 @@ class TDT_HW_Main {
         $class = str_replace( '-', ' ', $widget_base );
         $class = ucwords( $class );
         $class = str_replace( ' ', '_', $class );
-        $class = 'HW_' . $class;
+        $class = 'TDT_HW_' . $class;
 
-        if( ! class_exists( $class ) ) {
+        if ( ! class_exists( $class ) ) {
             $class_file = TDT_HW_WIDGETS_PATH . DS . $widget_base . DS . $widget_base . '.php';
 
             if ( ! file_exists( $class_file ) ) {
@@ -163,12 +163,16 @@ class TDT_HW_Main {
      */
     public static function open_main() {
         echo '<div id="tdt-hw-admin-page">';
+
+        do_action( 'tdt_hw_admin_open_main' );
     }
 
     /**
      *  The closing tags of the main section
      */
     public static function close_main() {
+        do_action( 'tdt_hw_admin_close_main' );
+        
         echo '</div>';
     }
 }
