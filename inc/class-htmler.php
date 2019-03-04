@@ -151,12 +151,15 @@ class HTMLER {
      *  @return bool    true if valid
      */
     public static function valid_tag( $tag ) {
-        $tags = array( 'a', 'b', 'blockquote', 'div',
-                        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-                        'i', 'li', 'ol', 'ul',
-                        'small', 'span',
-                        'table', 'td', 'tr'
-                    );
+        $tags = array(
+            'a', 'b', 'i', 'small', 'span', 'label', 'button',          // Inline
+            'sub', 'sup',
+            'p', 'blockquote', 'div', 'header', 'footer', 'article',    // Block
+            'address', 'section', 'fieldset',
+            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',                         // Headings
+            'ul', 'ol', 'li', 'dl', 'dt', 'dd',                         // Lists
+            'table', 'th', 'tr', 'td',                                   // Table
+        );
 
         return in_array( $tag, $tags );
     }
