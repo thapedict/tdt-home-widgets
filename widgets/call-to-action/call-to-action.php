@@ -9,7 +9,7 @@
 /**
  * Call To Action
  */
-class HW_Call_To_Action extends TDT_HW_Widget_Base {
+class TDT_HW_Call_To_Action extends TDT_HW_Widget_Base {
     /**
      * The base ID of the Widget
      *
@@ -17,5 +17,21 @@ class HW_Call_To_Action extends TDT_HW_Widget_Base {
      */
     protected $id = 'call_to_action';
 
-    protected $meta = array( 'read_more_text', 'read_more_url' );
+    /**
+     *  The widget metas
+     *
+     *  @var array $meta
+     */
+    protected $meta = array(
+        array(
+            'name' => 'sub_title',
+            'type' => 'textarea'
+        ),
+        'read_more_text',
+        'read_more_url',
+        array(
+            'type' => 'image_picker',
+            'name'=> 'featured_image'
+            )
+    );
 }
