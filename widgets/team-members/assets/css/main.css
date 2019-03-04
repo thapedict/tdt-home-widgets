@@ -1,0 +1,20 @@
+.hw-widget.team-members #members {
+    display: flex;
+}
+
+.hw-widget.team-members .member {
+    width: 33%;
+}
+
+.hw-widget.team-members .member #avatar img {
+    border-radius: 50%;
+    height: 150px;
+}
+
+.hw-widget.team-members .member .social-links {
+    margin-top: 1em;
+}
+
+.hw-widget.team-members .member .social-media-link {
+    text-decoration: none;
+}
