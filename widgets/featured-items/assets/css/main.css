@@ -1,0 +1,7 @@
+.hw-widget.featured-items .items-loop {
+    display: flex;
+}
+
+.hw-widget.featured-items .items-loop > * {
+    width: 33%;
+}
