@@ -1,0 +1,23 @@
+.hw-widget.testimonials .testimonial {
+    position: relative;
+    padding-left: 120px;
+}
+
+.hw-widget.testimonials .testimonial #image {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+}
+
+.hw-widget.testimonials .testimonial #message {
+    font-style: italic;
+}
+
+.hw-widget.testimonials .testimonial #message:before {
+    content: open-quote;
+}
+
+.hw-widget.testimonials .testimonial #message:after {
+    content: close-quote;
+}
