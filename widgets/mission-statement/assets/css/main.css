@@ -1,0 +1,10 @@
+.hw-widget.mission-statement {
+    padding: 2.5em 2em;
+    font-size: 1.3em;
+    text-align: center;
+    font-style: italic;
+}
+
+.hw-widget.mission-statement p {
+    margin: 0;
+}
