@@ -46,6 +46,13 @@
 		</properties>
 	</rule>
 
+	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeOpenParenthesis">
+		<exclude-pattern>inc/class-html-form.php</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterStructureOpen">
+		<exclude-pattern>inc/class-html-form.php</exclude-pattern>
+	</rule>
+
 	
 	<rule ref="Generic">
 		<exclude name="Generic.Arrays.DisallowLongArraySyntax.Found" />
@@ -84,6 +91,9 @@
 		<exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
 		
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.SpacesAroundArrayKeys" />
+
+		<!-- Array double arrow not aligned correctly -->
+		<exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned" />
 	</rule>
 
 </ruleset>
