@@ -1,0 +1,23 @@
+.hw-widget.contact-details .details-loop {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.hw-widget.contact-details .details-loop > * {
+    width: 33%;
+    margin-bottom: 0.5em;
+}
+
+.hw-widget.contact-details .details-loop .link-postal-address > * {
+    float: left;
+    line-height: 1em;
+}
+
+.hw-widget.contact-details .details-loop .link-postal-address:after {
+    content: "";
+    clear: both;
+}
+
+.hw-widget.contact-details .details-loop address {
+    margin-top: 0;
+}
