@@ -20,13 +20,18 @@ if ( ! defined( 'DS' ) ) {
 }
 
 define( 'TDT_HW_VERSION', '0.0.1' );
-define( 'TDT_HW_PATH', __DIR__, true );
-define( 'TDT_HW_WIDGETS_PATH', TDT_HW_PATH . DS . 'widgets', true );
 
-define( 'TDT_HW_CSS_URL', plugin_dir_url( __FILE__ ) . 'assets/css/', true );
-define( 'TDT_HW_JS_URL', plugin_dir_url( __FILE__ ) . 'assets/js/', true );
+define( 'TDT_HW_PATH', __DIR__, true );
+define( 'TDT_HW_URL', plugin_dir_url( __FILE__ ), true );
+
+define( 'TDT_HW_WIDGETS_PATH', TDT_HW_PATH . DS . 'widgets', true );
+define( 'TDT_HW_WIDGETS_URL', TDT_HW_URL . 'widgets/', true );
+
+define( 'TDT_HW_CSS_URL', TDT_HW_URL . 'assets/css/', true );
+define( 'TDT_HW_JS_URL', TDT_HW_URL . 'assets/js/', true );
 
 
 require_once 'autoload.php';
 
 $tdt_hw_main = new TDT_HW_Main();
+
