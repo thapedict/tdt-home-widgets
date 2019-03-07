@@ -41,6 +41,8 @@ class TDT_HW_Main {
         $this->load_all_widgets();
 
         add_action( 'admin_init', array( $this, 'admin_init' ) );
+
+        require_once TDT_HW_PATH . '/inc/tdt-hw-the-post.php';
     }
 
     /**
