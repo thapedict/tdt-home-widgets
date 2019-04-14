@@ -1,6 +1,6 @@
 
 
-<div class="hw-widget contact-details" id="<?php echo "post-{$post->ID}"; ?>">
+<div id="<?php echo "post-{$post->ID}"; ?>" class="hw-widget contact-details">
 <?php
     if ( ! empty( $post->post_title ) ) {
         printf( '<h1 id="title">%s</h1>', esc_html( $post->post_title ) );
@@ -40,6 +40,9 @@
 
     if ( ! empty( $post->phsical_address ) ) {
         $physical_address = explode( "\n", $post->physical_address );
+
+        array_walk( $physical_address, 'esc_html' );
+
         $physical_address = '<address><span>' . implode( '</span><span>', $physical_address ) . '</span></address>';
 
         $links .= sprintf( '<div class="link-physical-address"><i class="fas fa-home"></i> %1$s</div>', $physical_address );
@@ -47,6 +50,9 @@
 
     if ( ! empty( $post->postal_address ) ) {
         $postal_address = explode( "\n", $post->postal_address );
+
+        array_walk( $postal_address, 'esc_html' );
+
         $postal_address = '<address><span>' . implode( '</span><span>', $postal_address ) . '</span></address>';
 
         $links .= sprintf( '<div class="link-postal-address"><i class="fas fa-envelope"></i> %1$s</div>', $postal_address );

@@ -1,6 +1,6 @@
 
-<div class="hw-widget mission-statement" id="<?php echo "post-{$post->ID}"; ?>">
+<div id="<?php echo "post-{$post->ID}"; ?>" class="hw-widget mission-statement">
     <?php
-        echo '<p>', $post->statement, '</p>';
+        HTMLER::p_e( $post->statement );
     ?>
 </div>
