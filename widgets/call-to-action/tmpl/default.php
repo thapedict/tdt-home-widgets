@@ -7,7 +7,7 @@
 // ---------- +++ ---------- //
 
 ?>
-<div class="hw-widget call-to-action" id="<?php echo "post-{$post->ID}"; ?>">
+<div id="<?php echo "post-{$post->ID}"; ?>" class="hw-widget call-to-action">
 <?php
     $bg_style = '';
 

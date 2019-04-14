@@ -1,5 +1,5 @@
 
-<div class="hw-widget post-loop" id="<?php echo "post-{$post->ID}"; ?>">
+<div id="<?php echo "post-{$post->ID}"; ?>" class="hw-widget post-loop">
     <?php
         DPE_HTMLER::h2_e( $post->post_title, array( 'class' => 'main-title align-center') );
 
