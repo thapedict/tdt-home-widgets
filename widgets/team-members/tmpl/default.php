@@ -18,6 +18,11 @@
             $members = $post->members;
 
             foreach ( $members as $member ) {
+                // don't print empty
+                if ( empty( $member[ 'names' ] ) && ( empty( $member[ 'position' ] ) || empty( $member[ 'bio' ] ) ) ) {
+                    continue;
+                }
+
                 print '<div class="member">';
                     printf( '<h3 id="title">%s</h3>', esc_html( $member[ 'names' ] ) );
                     printf( '<p id="position">%s</p>', esc_html( $member[ 'position' ] ) );

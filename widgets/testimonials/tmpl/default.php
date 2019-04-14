@@ -17,6 +17,11 @@
 
     echo '<div class="items-loop">';
     foreach ( $testimonials as $t ) {
+        // don't print empty
+        if ( empty( $t[ 'name' ] ) || empty( $t[ 'message' ] ) ) {
+            continue;
+        }
+
         $html = '';
 
         $__attr = array(
