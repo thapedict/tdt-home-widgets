@@ -83,7 +83,7 @@ class TDT_HW_Main {
 
         HTMLER::h1_e( __( 'Home Widgets', 'tdt-hw' ) );
 
-        echo '<ul style="font-size:1.2em">';
+        echo '<ul id="all-widgets" style="font-size:1.2em">';
         foreach ( $this->widgets as $w ) {
             $url = $w->get_admin_url();
             $link = HTMLER::a( $w->plural_name, array( 'href' => $url ) );
@@ -121,9 +121,26 @@ class TDT_HW_Main {
             $main_widget_class = $this->widget_factory( $name );
 
             if ( $main_widget_class && is_a( $main_widget_class, 'TDT_HW_Widget_Base' ) ) {
-                $this->widgets[] = $main_widget_class;
+                $this->widgets[ $name ] = $main_widget_class;
             }
         }
+    }
+
+    /**
+     *  Returns an instance of a loaded base widget.
+     *
+     *  @param string $name The name of the base widget.
+     *
+     *  @return An instance of a TDT_HW_Widget_Base or null on failure.
+     */
+    public function get_widget( $name ) {
+        $widget = null;
+
+        if ( isset( $this->widgets[ $name ] ) ) {
+            $widget = $this->widgets[ $name ];
+        }
+
+        return $widget;
     }
 
     /**
