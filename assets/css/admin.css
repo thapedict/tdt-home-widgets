@@ -5,6 +5,21 @@
     background-color: #ffffff;
 }
 
+#tdt-hw-admin-page #all-widgets li {
+    padding: 2em 1em;
+    display: inline-block;
+    margin: 1em;
+    width: 250px;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 0.5em;
+    font-size: 1.3em;
+}
+
+#tdt-hw-admin-page #all-widgets li a {
+    text-decoration: none;
+}
+
 #tdt-hw-admin-page #admin-notices .notice {
     padding: 0.5em;
     margin-bottom: 0.5em;
