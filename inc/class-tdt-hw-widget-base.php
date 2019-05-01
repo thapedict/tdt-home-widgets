@@ -76,7 +76,6 @@ abstract class TDT_HW_Widget_Base {
      */
     public function init() {
         $this->register_post_type();
-        $this->register_widget();
         $this->register_shortcode();
 
         add_action( 'admin_menu', array( $this, 'admin_menu' ) );
@@ -206,8 +205,12 @@ abstract class TDT_HW_Widget_Base {
     /**
      *  Register this as a widget
      */
-    protected function register_widget() {
+    public function register_widget() {
+        $widget_class = 'tdt_' . $this->id . '_widget';
 
+        if ( class_exists( $widget_class ) ) {
+            register_widget( $widget_class );
+        }
     }
 
     /**
