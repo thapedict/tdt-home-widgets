@@ -38,6 +38,7 @@ class TDT_HW_Main {
     public function init() {
         add_action( 'admin_menu', array( $this, 'admin_menu' ) );
         add_action( 'all_admin_notices', array( $this, 'admin_notices' ) );
+
         $this->load_all_widgets();
 
         add_action( 'admin_init', array( $this, 'admin_init' ) );
@@ -124,6 +125,12 @@ class TDT_HW_Main {
                 $this->widgets[ $name ] = $main_widget_class;
             }
         }
+
+        foreach ( $this->widgets as $w ) {
+            $w->register_widget();
+        }
+
+        do_action( 'tdt_hw_loaded_all_widgets' );
     }
 
     /**
